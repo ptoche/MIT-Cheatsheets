@@ -1,0 +1,135 @@
+% delimiter commands
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}\DeclarePairedDelimiter\sparen{[}{]}% square brackets
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}% absolute value, \abs* for scaled version
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}% mathematical norm
+
+% statistics symbols
+\newcommand\mean[1]{\mathop{\overline{#1}}\nolimits}% mean
+\DeclareMathOperator{\median}{M}% median
+%\DeclareMathOperator{\mode}{mode}% \mode already defined
+% calligraphic style
+\let\P\relax\DeclareMathOperator{\P}{\mathbb{P}}% probability
+\let\E\relax\DeclareMathOperator{\E}{\mathbb{E}}% expectation
+\let\V\relax\DeclareMathOperator{\V}{\mathbb{V}}% variance
+\let\C\relax\DeclareMathOperator{\C}{\mathbb{C}}% covariance
+% blackboard bold style
+%\let\P\relax\DeclareMathOperator{\P}{\mathcal{P}}% probability
+%\let\E\relax\DeclareMathOperator{\E}{\mathcal{E}}% expectation
+%\let\V\relax\DeclareMathOperator{\V}{\mathcal{V}}% variance
+%\let\C\relax\DeclareMathOperator{\C}{\mathcal{C}}% covariance
+\DeclareMathOperator{\Var}{Var}% variance
+\DeclareMathOperator{\Cov}{Cov}% covariance
+\DeclareMathOperator{\Corr}{Corr}% correlation
+% Stock and Watson notation
+\newcommand{\var}{\mathop{\textsc{var}}\nolimits}% variance
+\newcommand{\std}{\mathop{\sigma}\nolimits}% standard deviation
+\newcommand{\cov}{\mathop{\textsc{cov}}\nolimits}% covariance
+\newcommand{\cor}{\mathop{\textsc{cor}}\nolimits}% correlation
+\DeclareMathOperator{\se}{\scalebox{0.9}[0.9]{\ensuremath{\textsc{SE}}}}% standard error
+\DeclareMathOperator{\me}{\mathop{\textsc{me}}\nolimits}% margin of error
+
+% auto-scaling operators | simple version
+\DeclarePairedDelimiter{\parens}{(}{)}% auto-scaling parentheses
+\DeclarePairedDelimiter{\bracks}{[}{]}% auto-scaling brackets
+%\NewDocumentCommand{\Exp}{}{\mathbb{P}\bracks}% auto-scale with \Exp*{}
+%\NewDocumentCommand{\Prob}{}{\mathbb{P}\parens}% auto-scale with \Prob*{}
+% auto-scaling operators | advanced version
+\DeclarePairedDelimiterX{\probargument}[1]{[}{]}{\probargumentA{#1}}
+\NewDocumentCommand{\probargumentA}{>{\SplitArgument{1}{|}}m}{%
+  \probargumentB#1%
+}
+\NewDocumentCommand{\probargumentB}{mm}{%
+  \IfNoValueTF{#2}{% not conditional
+    #1%
+  }{% conditional
+    #1\;\delimsize|\;#2%
+  }%
+}
+\NewDocumentCommand{\Prob}{e{_}}{%
+  \mathbb{P}\IfValueT{#1}{_{#1}}\probargument
+}
+\NewDocumentCommand{\Exp}{e{_}}{%
+  \mathbb{E}\IfValueT{#1}{_{#1}}\probargument
+}
+
+% distribution operators
+\DeclareMathOperator*{\Pct}{P}% percentile
+\DeclareMathOperator*{\Q}{Q}% quantile
+\DeclareMathOperator{\IQR}{IQR}% interquartile range
+\DeclareMathOperator{\Sk}{Sk}% skewness
+\DeclareMathOperator{\dN}{\mathcal{N}}% Normal distribution
+\newcommand{\Bernoulli}{\mathrm{Bernoulli}}% Bernoulli distribution
+\newcommand{\Ber}{\mathrm{Ber}}% Bernoulli distribution
+\newcommand{\Poisson}{\mathrm{Poisson}}% Poisson distribution
+\newcommand{\Pois}{\mathrm{Pois}}% Poisson distribution
+\newcommand{\Expo}{\mathrm{Exp}}% Exponential distribution
+\newcommand{\Exponential}{\mathrm{Exponential}}% Exponential distribution
+\newcommand{\Erlang}{\mathrm{Erlang}}% Erlang distribution
+\newcommand{\Geometric}{\mathrm{Geometric}}% Geometric distribution
+\newcommand{\Geom}{\mathrm{Geom}}% Geometric distribution
+\newcommand{\dGamma}{\mathrm{Gamma}}% Gamma distribution
+
+% number sets
+\newcommand{\R}{\mathbb{R}}% set of real numbers
+\newcommand{\N}{\mathbb{N}}% set of natural numbers
+\newcommand{\Z}{\mathbb{Z}}% set of integers
+\DeclareMathOperator{\Real}{\mathbb{R}}% real numbers
+\DeclareMathOperator{\Natural}{\mathbb{N}}% natural numbers
+\DeclareMathOperator{\Integer}{\mathbb{Z}}% integer numbers
+\renewcommand{\emptyset}{\varnothing}% empty set
+
+% mathematical symbols
+\newcommand{\e}{\mathrm{e}}% exponential | alternative to \exp
+\DeclareMathOperator{\sign}{\mathrm{sign}}% sign
+\DeclareMathOperator*{\argmax}{argmax}
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator*{\freq}{freq}% freq
+\DeclareMathOperator*{\indep}{\perp \!\!\! \perp}% independence symbol
+\DeclareMathOperator{\trace}{Tr}
+
+% Customized Permutation/Combination symbols
+\newcommand*{\permcomb}[4][0mu]{{{}^{#3}\mkern#1#2_{#4}}}
+\newcommand*{\perm}[1][-3mu]{\permcomb[#1]{P}}% permutations
+\newcommand*{\comb}[1][-1mu]{\,\permcomb[#1]{C}}% combinations
+\newcommand*{\arr}[1][-1mu]{\,\permcomb[#1]{A}}% arrangements
+\newcommand*{\arrange}[2]{A_{#1,#2}} 
+\newcommand*{\derange}[3][0mu]{{\mkern#1#2_{#3}}}
+\newcommand*{\der}[1][-1mu]{\,\derange[#1]{D}}% derangements
+\newcommand*{\Binom}[1]{\displaystyle\binom{#1}}
+\newcommand{\bbinom}[3][0.8]{\scalebox{#1}{$\dbinom{#2}{#3}$}}
+% multiset | double-parenthesis notation
+\newcommand{\multiset}[2]{\bigl(\!{\binom{#1}{#2}}\!\bigr)}
+\newcommand{\Multiset}[2]{\left(\!\!{\displaystyle\binom{#1}{#2}}\!\!\right)}
+
+% displaystyle commands
+\newcommand*{\Sum}{\displaystyle\sum}
+\newcommand*{\Prod}{\displaystyle\prod}
+\newcommand*{\Frac}[2]{\displaystyle\frac{#1}{#2}}
+\newcommand*{\Int}{\displaystyle\int}
+\newcommand*{\Sqrt}[1]{\displaystyle\sqrt{#1}}
+\newcommand*{\eval}[3]{#1\Big\rvert_{#2}^{#3}}
+\newcommand*{\Eval}[3]{#1\biggr\rvert_{#2}^{#3}}
+\newcommand*{\st}{\,\rvert\,}% 'such that' command for conditioning
+\newcommand*{\St}{\,\Big\rvert\,}% 'such that' command for conditioning
+\newcommand*{\ST}{\,\biggr\rvert\,}% 'such that' command for conditioning
+\newcommand*{\To}{\;\to\;}% add space around \to
+\newcommand*{\converge}[2][]{\ext@arrow 0359\rightarrowfill@{#1}{#2}}
+\newcommand*{\textas}{\textnormal{ as }}% text inside math mode
+\newcommand*{\textif}{\textnormal{ if }}% text inside math mode
+\newcommand*{\textfor}{\textnormal{ for }}% text inside math mode
+\newcommand*{\textall}{\textnormal{ all }}% text inside math mode
+\newcommand*{\textsome}{\textnormal{ some }}% text inside math mode
+\newcommand*{\textwhere}{\textnormal{ where }}% text inside math mode
+\newcommand*{\textand}{\textnormal{ and }}% text inside math mode
+\newcommand*{\textor}{\textnormal{ or }}% text inside math mode
+\newcommand*{\textonlyif}{\textnormal{ only if }}% text inside math mode
+\newcommand*{\textiff}{\textnormal{ if and only if }}% text inside math mode
+\newcommand*{\textst}{\textnormal{ such that }}% text inside math mode
+\newcommand*{\textother}{\textnormal{ otherwise }}% text inside math mode
+\newcommand*{\pvalue}{\ensuremath{p}\textnormal{-value}}% text inside math mode
+
+% symbol for "distributed as" | \dist{i.i.d.}
+\makeatletter
+\newcommand{\dist}[1]{\mathbin{\overset{\scalebox{0.65}[0.65]{#1}}{\kern\z@\sim}}}
+\makeatother
